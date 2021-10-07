@@ -1,0 +1,6 @@
+fi:
+  decidim:
+    stats:
+      admin:
+        menu:
+          stats: Tilastot
