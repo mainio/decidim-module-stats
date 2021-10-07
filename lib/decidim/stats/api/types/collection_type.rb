@@ -12,7 +12,7 @@ module Decidim
       field :sets, !types[Decidim::Stats::SetType] do
         description "The statistics sets for this collection"
 
-        argument :keys do
+        argument :keys, method_access: false do
           type types[types.String]
           description "A statistics set key to search for."
         end

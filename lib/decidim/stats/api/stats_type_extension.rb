@@ -7,7 +7,7 @@ module Decidim
         type.field :stats, !type.types[Decidim::Stats::CollectionType] do
           description "The statistics collections for this record"
 
-          argument :keys do
+          argument :keys, method_access: false do
             type types[types.String]
             description "A statistics collection key to search for."
           end
