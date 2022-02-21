@@ -24,6 +24,8 @@ gem "rails", ">= 5.2.4.4"
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
   gem "decidim-dev", DECIDIM_VERSION
+  gem "rubocop-faker"
+  gem "rubocop-performance", "~> 1.6.0"
 end
 
 group :development do
