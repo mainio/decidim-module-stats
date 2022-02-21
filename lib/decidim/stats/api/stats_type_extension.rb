@@ -3,26 +3,21 @@
 module Decidim
   module Stats
     module StatsTypeExtension
-      def self.define(type)
-        type.field :stats, !type.types[Decidim::Stats::CollectionType] do
-          description "The statistics collections for this record"
+      def self.included(type)
+        type.field :stats, [Decidim::Stats::CollectionType], description: "The statistics collections for this record" do
+          argument :keys, GraphQL::Types::String, "A statistics collection key to search for.", required: false
+        end
+      end
 
-          argument :keys, method_access: false do
-            type types[types.String]
-            description "A statistics collection key to search for."
-          end
+      def stats(keys: nil)
+        user = context[:current_user]
 
-          resolve lambda { |obj, args, ctx|
-            user = ctx[:current_user]
-
-            if user&.admin?
-              query = obj.stats
-              query = query.where(key: args[:keys]) if args[:keys]
-              query
-            else
-              []
-            end
-          }
+        if user&.admin?
+          query = object.stats
+          query = query.where(key: keys) if keys
+          query
+        else
+          []
         end
       end
     end
