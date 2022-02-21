@@ -7,10 +7,7 @@ module Decidim
       isolate_namespace Decidim::Stats
 
       initializer "decidim_stats.type_extensions" do
-        # TODO: Update to 0.24+
-        Decidim::Core::ComponentInterface.define do
-          Decidim::Stats::StatsTypeExtension.define(self)
-        end
+        Decidim::Core::ComponentInterface.include Decidim::Stats::StatsTypeExtension
       end
 
       config.to_prepare do
