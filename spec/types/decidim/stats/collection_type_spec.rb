@@ -4,7 +4,7 @@ require "spec_helper"
 require "decidim/api/test/type_context"
 
 describe Decidim::Stats::CollectionType do
-  include_context "with a graphql type"
+  include_context "with a graphql class type"
 
   let(:model) { create(:stats_collection) }
 
