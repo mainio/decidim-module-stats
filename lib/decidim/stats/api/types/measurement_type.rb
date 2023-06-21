@@ -6,9 +6,9 @@ module Decidim
       graphql_name "StatsMeasurement"
       description "A statistics measurement"
 
-      field :label, GraphQL::Types::String, "The label for this measurement"
-      field :value, GraphQL::Types::Int, "The value for this measurement"
-      field :children, [Decidim::Stats::MeasurementType], "The child measurements for this measurement"
+      field :label, GraphQL::Types::String, "The label for this measurement", null: false
+      field :value, GraphQL::Types::Int, "The value for this measurement", null: false
+      field :children, [Decidim::Stats::MeasurementType], "The child measurements for this measurement", null: false
     end
   end
 end

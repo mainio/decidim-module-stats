@@ -4,7 +4,7 @@ module Decidim
   module Stats
     module StatsTypeExtension
       def self.included(type)
-        type.field :stats, [Decidim::Stats::CollectionType], description: "The statistics collections for this record" do
+        type.field :stats, [Decidim::Stats::CollectionType], description: "The statistics collections for this record", null: false do
           argument :keys, GraphQL::Types::String, "A statistics collection key to search for.", required: false
         end
       end
