@@ -10,8 +10,6 @@ module Decidim
                  class_name: "Decidim::Organization"
       belongs_to :measurable, foreign_key: :decidim_measurable_id, foreign_type: :decidim_measurable_type, polymorphic: true
       has_many :sets, foreign_key: :decidim_stats_collection_id, class_name: "Decidim::Stats::Set", inverse_of: :collection, dependent: :destroy
-
-      validates :organization, :measurable, presence: true
     end
   end
 end

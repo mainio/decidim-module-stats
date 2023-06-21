@@ -14,8 +14,6 @@ module Decidim
         inverse_of: :set,
         dependent: :destroy
       )
-
-      validates :collection, presence: true
     end
   end
 end
