@@ -32,7 +32,6 @@ describe Decidim::Stats::CollectionType do
     let(:query) { "{ lastValueAt }" }
 
     it "returns the collection's lastValueAt" do
-      # 2023-06-21T19:47:03+00:00
       expect(response["lastValueAt"]).to eq(model.last_value_at.to_time.iso8601)
     end
   end
