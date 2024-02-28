@@ -5,6 +5,42 @@ require "spec_helper"
 describe Decidim::Stats::Collection do
   subject { create(:stats_collection) }
 
+  describe ".process!" do
+    let(:organization) { create(:organization) }
+    let(:participatory_space) { create(:participatory_process, organization: organization) }
+    let(:measurable) { create(:component, manifest_name: "dummy", participatory_space: participatory_space) }
+    let(:conditions) { { organization: organization, metadata: {}, key: "test" } }
+
+    it "yields by default" do
+      expect { |b| measurable.stats.process!(**conditions, &b) }.to yield_control
+    end
+
+    it "sets the collection locked during the yield" do
+      b = ->(collection) { expect(collection.locked_at).not_to be_nil }
+
+      measurable.stats.process!(**conditions, &b)
+
+      collection = measurable.stats.find_by(**conditions)
+      expect(collection.locked_at).to be_nil
+    end
+
+    context "when the collection is locked" do
+      let!(:collection) { measurable.stats.create!(locked_at: Time.current, **conditions) }
+
+      it "does not yield" do
+        expect { |b| measurable.stats.process!(**conditions, &b) }.not_to yield_control
+      end
+    end
+
+    context "when the collection is finalized" do
+      let!(:collection) { measurable.stats.create!(finalized: true, **conditions) }
+
+      it "does not yield" do
+        expect { |b| measurable.stats.process!(**conditions, &b) }.not_to yield_control
+      end
+    end
+  end
+
   describe "#finalize!" do
     it "sets the finalized at field" do
       expect { subject.finalize! }.to change(subject, :finalized?).from(false).to(true)
@@ -43,36 +79,6 @@ describe Decidim::Stats::Collection do
 
       it "returns true" do
         expect(subject.locked?).to be(true)
-      end
-    end
-  end
-
-  describe "#process!" do
-    it "yields by default" do
-      expect { |b| subject.process!(&b) }.to yield_control
-    end
-
-    it "sets the collection locked during the yield" do
-      b = -> { expect(subject.locked_at).not_to be_nil }
-
-      expect(subject.locked_at).to be_nil
-      subject.process!(&b)
-      expect(subject.locked_at).to be_nil
-    end
-
-    context "when the collection is locked" do
-      before { subject.update!(locked_at: Time.current) }
-
-      it "does not yield" do
-        expect { |b| subject.process!(&b) }.not_to yield_control
-      end
-    end
-
-    context "when the collection is finalized" do
-      before { subject.update!(finalized: true) }
-
-      it "does not yield" do
-        expect { |b| subject.process!(&b) }.not_to yield_control
       end
     end
   end
