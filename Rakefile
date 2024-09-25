@@ -46,7 +46,6 @@ task :development_app do
       "--path",
       "..",
       "--recreate_db",
-      "--seed_db",
       "--demo"
     )
   end
