@@ -10,7 +10,7 @@ module Decidim
       field :metadata, GraphQL::Types::JSON, "The metadata for this collection", null: false
       field :last_value_at, Decidim::Core::DateTimeType, "The time when the last value was included in this collection", null: true
       field :sets, [Decidim::Stats::SetType], description: "A statistics collection", null: false do
-        argument :keys, GraphQL::Types::String, method_access: false, description: "A statistics set key to search for.", required: false
+        argument :keys, GraphQL::Types::String, description: "A statistics set key to search for.", required: false
       end
 
       def sets(keys: nil)
