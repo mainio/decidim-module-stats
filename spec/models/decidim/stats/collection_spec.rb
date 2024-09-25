@@ -7,9 +7,9 @@ describe Decidim::Stats::Collection do
 
   describe ".process!" do
     let(:organization) { create(:organization) }
-    let(:participatory_space) { create(:participatory_process, organization: organization) }
-    let(:measurable) { create(:component, manifest_name: "dummy", participatory_space: participatory_space) }
-    let(:conditions) { { organization: organization, metadata: {}, key: "test" } }
+    let(:participatory_space) { create(:participatory_process, organization:) }
+    let(:measurable) { create(:component, manifest_name: "dummy", participatory_space:) }
+    let(:conditions) { { organization:, metadata: {}, key: "test" } }
 
     it "yields by default" do
       expect { |b| measurable.stats.process!(**conditions, &b) }.to yield_control

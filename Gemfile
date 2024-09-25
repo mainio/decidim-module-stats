@@ -26,6 +26,13 @@ end
 group :development do
   gem "letter_opener_web", "~> 2.0"
   gem "listen", "~> 3.1"
+
+  # rubocop & rubocop-rspec are set to the following versions because of a change where FactoryBot/CreateList
+  # must be a boolean instead of contextual. These version locks can be removed when this problem is handled
+  # through decidim-dev.
+  gem "rubocop", "~>1.28"
+  gem "rubocop-rspec", "2.20"
+
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"

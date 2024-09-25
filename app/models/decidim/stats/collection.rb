@@ -62,7 +62,7 @@ module Decidim
       #
       # @return [Boolean] A boolean indicating if the collection is locked.
       def locked?
-        self.locked_at = self.class.where(id: id).pick(:locked_at)
+        self.locked_at = self.class.where(id:).pick(:locked_at)
         locked_at.present?
       end
 

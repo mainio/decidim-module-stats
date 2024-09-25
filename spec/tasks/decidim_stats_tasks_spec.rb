@@ -13,8 +13,8 @@ describe "Executing Decidim Stats tasks" do
       allow(aggregator_class).to receive(:new).and_return(aggregator)
       allow(aggregator).to receive(:run) do
         collection = create(:stats_collection)
-        create_list(:stats_set, 2, collection: collection).each do |set|
-          create_list(:stats_measurement, 3, set: set)
+        create_list(:stats_set, 2, collection:).each do |set|
+          create_list(:stats_measurement, 3, set:)
         end
       end
     end
