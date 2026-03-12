@@ -7,7 +7,7 @@ require "decidim/stats/version"
 Gem::Specification.new do |spec|
   spec.name = "decidim-stats"
   spec.version = Decidim::Stats.version
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.2"
   spec.authors = ["Antti Hukkanen"]
   spec.email = ["antti.hukkanen@mainiotech.fi"]
 
@@ -27,5 +27,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "decidim-core", Decidim::Stats.decidim_version
 
-  spec.add_development_dependency "decidim-dev", Decidim::Stats.decidim_version
+  # spec.add_development_dependency "decidim-dev", Decidim::Stats.decidim_version
 end
